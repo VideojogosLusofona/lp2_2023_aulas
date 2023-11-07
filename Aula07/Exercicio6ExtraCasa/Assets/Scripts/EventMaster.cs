@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class EventMaster : MonoBehaviour
 {
@@ -8,16 +8,20 @@ public class EventMaster : MonoBehaviour
     [SerializeField] private Texture background = null;
 
     // Unity event, should be private
-    private UnityEventChar keyPress;
+    private UnityEvent<char> keyPress;
 
     // Public read-only property, so we can access the event externally
-    public UnityEventChar KeyPress => keyPress;
+    public UnityEvent<char> KeyPress => keyPress;
 
     // Make sure event is initialized before others start adding listeners
     private void Awake()
     {
         if (keyPress == null)
-            keyPress = new UnityEventChar();
+            keyPress = new UnityEvent<char>();
+
+        // Alternative: we can check if keyPress is null and assign it a value
+        // in one line using:
+        // keyPress ??= new UnityEvent<char>();
     }
 
     // Update is called once per frame
@@ -47,11 +51,13 @@ public class EventMaster : MonoBehaviour
         GUI.Label(new Rect(10, 10, 200, 50), "Press W, S, A, D keys");
     }
 
-
     // This method triggers the event. It can only be called from this class
     // or subclasses
     protected virtual void OnKeyPress(char key)
     {
         if (keyPress != null) keyPress.Invoke(key);
+        // Alternative: we can check if keyPress is null and assign it a value
+        // in one line using:
+        // keyPress ??= new UnityEvent<char>();
     }
 }

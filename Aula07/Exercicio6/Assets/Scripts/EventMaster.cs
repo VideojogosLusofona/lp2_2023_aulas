@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class EventMaster : MonoBehaviour
 {
@@ -8,7 +8,7 @@ public class EventMaster : MonoBehaviour
     [SerializeField] private Texture background = null;
 
     // Unity event, should be private
-    [SerializeField] private UnityEventChar keyPress;
+    [SerializeField] private UnityEvent<char> keyPress;
 
     // Update is called once per frame
     private void Update()
